@@ -1,0 +1,62 @@
+{
+  "name": "vscode-plsql-syntax",
+  "displayName": "PL/SQL",
+  "description": "PL/SQL and SQL syntax highlighting for VS Code",
+  "version": "1.0.0",
+  "publisher": "local",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "plsql",
+    "sql",
+    "syntax",
+    "highlight",
+    "database"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "plsql",
+        "aliases": [
+          "PL/SQL",
+          "PLSQL"
+        ],
+        "extensions": [
+          ".sql",
+          ".pls",
+          ".plsql",
+          ".pks",
+          ".pkb",
+          ".plb",
+          ".fnc",
+          ".prc",
+          ".trg",
+          ".vw",
+          ".pkg",
+          ".pck",
+          ".seq",
+          ".job",
+          ".src",
+          ".act",
+          ".bac",
+          ".bas",
+          ".scr",
+          ".ut"
+        ],
+        "configuration": "./syntaxes/language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "plsql",
+        "scopeName": "source.plsql",
+        "path": "./syntaxes/plsql.tmLanguage.json"
+      }
+    ]
+  }
+}

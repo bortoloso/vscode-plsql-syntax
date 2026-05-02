@@ -1,0 +1,375 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "PL/SQL",
+  "scopeName": "source.plsql",
+  "foldingStartMarker": "(?i)\\b(BEGIN|LOOP|CASE)\\b",
+  "foldingStopMarker": "(?i)\\b(END)\\b",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#numbers" },
+    { "include": "#operators" },
+    { "include": "#punctuation" },
+    { "include": "#constants" },
+    { "include": "#exceptions" },
+    { "include": "#datatypes" },
+    { "include": "#control-flow" },
+    { "include": "#dml" },
+    { "include": "#ddl" },
+    { "include": "#plsql-keywords" },
+    { "include": "#builtin-functions" },
+    { "include": "#sqlplus-commands" },
+    { "include": "#bind-variables" },
+    { "include": "#identifiers" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-dash.plsql",
+          "match": "--.*$"
+        },
+        {
+          "name": "comment.block.plsql",
+          "begin": "/\\*",
+          "end": "\\*/",
+          "captures": {
+            "0": { "name": "punctuation.definition.comment.plsql" }
+          }
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "comment": "Q-quote with angle brackets: q'<...>'",
+          "name": "string.quoted.other.q-angle.plsql",
+          "begin": "(?i)\\bN?q'<",
+          "end": ">'"
+        },
+        {
+          "comment": "Q-quote with braces: q'{...}'",
+          "name": "string.quoted.other.q-brace.plsql",
+          "begin": "(?i)\\bN?q'\\{",
+          "end": "\\}'"
+        },
+        {
+          "comment": "Q-quote with brackets: q'[...]'",
+          "name": "string.quoted.other.q-bracket.plsql",
+          "begin": "(?i)\\bN?q'\\[",
+          "end": "\\]'"
+        },
+        {
+          "comment": "Q-quote with parens: q'(...)'",
+          "name": "string.quoted.other.q-paren.plsql",
+          "begin": "(?i)\\bN?q'\\(",
+          "end": "\\)'"
+        },
+        {
+          "comment": "Q-quote with arbitrary delimiter: q'X...X'",
+          "name": "string.quoted.other.q-delim.plsql",
+          "begin": "(?i)\\bN?q'([^\\s<\\{\\[\\(])",
+          "end": "\\1'"
+        },
+        {
+          "comment": "National character literal: N'...'",
+          "name": "string.quoted.single.nchar.plsql",
+          "begin": "(?i)\\bN'",
+          "end": "'"
+        },
+        {
+          "comment": "Standard single-quoted string",
+          "name": "string.quoted.single.plsql",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            {
+              "name": "constant.character.escape.plsql",
+              "match": "''"
+            }
+          ]
+        },
+        {
+          "comment": "Quoted identifier (double quotes)",
+          "name": "string.quoted.double.plsql",
+          "begin": "\"",
+          "end": "\""
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "comment": "Decimal with optional exponent",
+          "name": "constant.numeric.plsql",
+          "match": "\\b\\d+(\\.\\d+)?([eE][+-]?\\d+)?\\b"
+        },
+        {
+          "comment": "Leading dot decimal",
+          "name": "constant.numeric.plsql",
+          "match": "\\.\\d+([eE][+-]?\\d+)?\\b"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.comparison.plsql",
+          "match": "<>|!=|~=|\\^=|<=|>=|<|>|:="
+        },
+        {
+          "name": "keyword.operator.arithmetic.plsql",
+          "match": "\\+|-|\\*(?!\\/)|(?<!\\/)\\/(?!\\*)|\\*\\*"
+        },
+        {
+          "name": "keyword.operator.concatenation.plsql",
+          "match": "\\|\\|"
+        },
+        {
+          "name": "keyword.operator.assignment.plsql",
+          "match": "=>|="
+        },
+        {
+          "name": "keyword.operator.logical.plsql",
+          "match": "(?i)\\b(AND|OR|NOT|IN|EXISTS|BETWEEN|LIKE|IS)\\b"
+        }
+      ]
+    },
+    "punctuation": {
+      "patterns": [
+        {
+          "name": "punctuation.separator.comma.plsql",
+          "match": ","
+        },
+        {
+          "name": "punctuation.terminator.semicolon.plsql",
+          "match": ";"
+        },
+        {
+          "name": "punctuation.section.parens.begin.plsql",
+          "match": "\\("
+        },
+        {
+          "name": "punctuation.section.parens.end.plsql",
+          "match": "\\)"
+        },
+        {
+          "name": "punctuation.accessor.dot.plsql",
+          "match": "\\."
+        },
+        {
+          "name": "punctuation.definition.label.plsql",
+          "match": "<<|>>"
+        }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "name": "constant.language.boolean.plsql",
+          "match": "(?i)\\b(TRUE|FALSE)\\b"
+        },
+        {
+          "name": "constant.language.null.plsql",
+          "match": "(?i)\\bNULL\\b"
+        },
+        {
+          "name": "constant.language.pseudocolumn.plsql",
+          "match": "(?i)\\b(ROWNUM|ROWID|LEVEL|SYSDATE|SYSTIMESTAMP|CURRENT_DATE|CURRENT_TIMESTAMP|LOCALTIMESTAMP|USER|UID|SQLCODE|SQLERRM)\\b"
+        }
+      ]
+    },
+    "exceptions": {
+      "patterns": [
+        {
+          "name": "support.constant.exception.plsql",
+          "match": "(?i)\\b(ACCESS_INTO_NULL|CASE_NOT_FOUND|COLLECTION_IS_NULL|CURSOR_ALREADY_OPEN|DUP_VAL_ON_INDEX|INVALID_CURSOR|INVALID_NUMBER|LOGIN_DENIED|NO_DATA_FOUND|NO_DATA_NEEDED|NOT_LOGGED_ON|PROGRAM_ERROR|ROWTYPE_MISMATCH|SELF_IS_NULL|STORAGE_ERROR|SUBSCRIPT_BEYOND_COUNT|SUBSCRIPT_OUTSIDE_LIMIT|SYS_INVALID_ROWID|TIMEOUT_ON_RESOURCE|TOO_MANY_ROWS|VALUE_ERROR|ZERO_DIVIDE)\\b"
+        }
+      ]
+    },
+    "datatypes": {
+      "patterns": [
+        {
+          "name": "storage.type.plsql",
+          "match": "(?i)\\b(VARCHAR2|NVARCHAR2|VARCHAR|CHAR|NCHAR|CLOB|NCLOB|BLOB|BFILE|LONG|LONG\\s+RAW|RAW|NUMBER|INTEGER|INT|SMALLINT|DECIMAL|DEC|FLOAT|REAL|DOUBLE\\s+PRECISION|BINARY_FLOAT|BINARY_DOUBLE|BINARY_INTEGER|PLS_INTEGER|SIMPLE_INTEGER|SIMPLE_FLOAT|SIMPLE_DOUBLE|NATURAL|NATURALN|POSITIVE|POSITIVEN|SIGNTYPE|BOOLEAN|DATE|TIMESTAMP|INTERVAL|XMLTYPE|SYS_REFCURSOR|ROWID|UROWID)\\b"
+        },
+        {
+          "comment": "Timestamp with time zone variants",
+          "name": "storage.type.plsql",
+          "match": "(?i)\\bTIMESTAMP\\s+WITH\\s+(LOCAL\\s+)?TIME\\s+ZONE\\b"
+        },
+        {
+          "comment": "Interval types",
+          "name": "storage.type.plsql",
+          "match": "(?i)\\bINTERVAL\\s+(DAY|YEAR)\\b"
+        },
+        {
+          "comment": "Attribute references: %TYPE, %ROWTYPE",
+          "name": "storage.modifier.attribute.plsql",
+          "match": "(?i)%(TYPE|ROWTYPE|FOUND|NOTFOUND|ISOPEN|ROWCOUNT|BULK_ROWCOUNT|BULK_EXCEPTIONS)\\b"
+        }
+      ]
+    },
+    "control-flow": {
+      "patterns": [
+        {
+          "name": "keyword.control.plsql",
+          "match": "(?i)\\b(IF|THEN|ELSIF|ELSE|END\\s+IF|LOOP|END\\s+LOOP|WHILE|FOR|FORALL|CASE|END\\s+CASE|WHEN|EXIT|CONTINUE|RETURN|GOTO|RAISE|RAISE_APPLICATION_ERROR)\\b"
+        }
+      ]
+    },
+    "dml": {
+      "patterns": [
+        {
+          "name": "keyword.other.dml.plsql",
+          "match": "(?i)\\b(SELECT|INSERT|UPDATE|DELETE|MERGE|FROM|INTO|WHERE|SET|VALUES|GROUP\\s+BY|ORDER\\s+BY|HAVING|UNION|UNION\\s+ALL|INTERSECT|MINUS|EXCEPT|DISTINCT|ALL|AS|ON|JOIN|INNER\\s+JOIN|LEFT\\s+JOIN|LEFT\\s+OUTER\\s+JOIN|RIGHT\\s+JOIN|RIGHT\\s+OUTER\\s+JOIN|FULL\\s+JOIN|FULL\\s+OUTER\\s+JOIN|CROSS\\s+JOIN|NATURAL\\s+JOIN|USING|RETURNING|BULK\\s+COLLECT|LIMIT|FETCH|OFFSET|CONNECT\\s+BY|START\\s+WITH|PRIOR|WITH|PIVOT|UNPIVOT)\\b"
+        },
+        {
+          "name": "keyword.other.dml.modifier.plsql",
+          "match": "(?i)\\b(ASC|DESC|NULLS\\s+FIRST|NULLS\\s+LAST|BETWEEN|LIKE|ESCAPE|IN|ANY|SOME|EXISTS|NOT)\\b"
+        }
+      ]
+    },
+    "ddl": {
+      "patterns": [
+        {
+          "name": "keyword.other.ddl.plsql",
+          "match": "(?i)\\b(CREATE|CREATE\\s+OR\\s+REPLACE|ALTER|DROP|TRUNCATE|GRANT|REVOKE|COMMENT\\s+ON|RENAME|ANALYZE|PURGE)\\b"
+        },
+        {
+          "name": "keyword.other.ddl.object.plsql",
+          "match": "(?i)\\b(TABLE|VIEW|MATERIALIZED\\s+VIEW|INDEX|SEQUENCE|SYNONYM|DATABASE\\s+LINK|DIRECTORY|TABLESPACE|SCHEMA|CLUSTER|CONTEXT|DIMENSION|OUTLINE)\\b"
+        },
+        {
+          "name": "keyword.other.ddl.constraint.plsql",
+          "match": "(?i)\\b(CONSTRAINT|PRIMARY\\s+KEY|FOREIGN\\s+KEY|UNIQUE|CHECK|REFERENCES|CASCADE|NOT\\s+NULL|DEFAULT|GENERATED|IDENTITY|ENABLE|DISABLE|NOVALIDATE|VALIDATE)\\b"
+        },
+        {
+          "name": "keyword.other.ddl.storage.plsql",
+          "match": "(?i)\\b(PARTITION|SUBPARTITION|TABLESPACE|PCTFREE|INITRANS|STORAGE|COMPRESS|NOCOMPRESS|LOGGING|NOLOGGING|PARALLEL|NOPARALLEL|CACHE|NOCACHE|CYCLE|NOCYCLE|MAXVALUE|MINVALUE|INCREMENT\\s+BY|START\\s+WITH|ORDER|NOORDER)\\b"
+        }
+      ]
+    },
+    "plsql-keywords": {
+      "patterns": [
+        {
+          "name": "keyword.other.plsql.block.plsql",
+          "match": "(?i)\\b(DECLARE|BEGIN|END|EXCEPTION|PRAGMA)\\b"
+        },
+        {
+          "name": "keyword.other.plsql.definition.plsql",
+          "match": "(?i)\\b(PROCEDURE|FUNCTION|PACKAGE|PACKAGE\\s+BODY|TRIGGER|TYPE|TYPE\\s+BODY|CURSOR|RECORD|SUBTYPE|VARRAY|OBJECT|BODY|EDITIONABLE|NONEDITIONABLE)\\b"
+        },
+        {
+          "name": "keyword.other.plsql.modifier.plsql",
+          "match": "(?i)\\b(CONSTANT|DEFAULT|AUTHID|CURRENT_USER|DEFINER|DETERMINISTIC|PIPELINED|PARALLEL_ENABLE|RESULT_CACHE|ACCESSIBLE\\s+BY|NOCOPY|OUT|IN|OVERRIDING|MEMBER|STATIC|MAP|CONSTRUCTOR|FINAL|INSTANTIABLE|NOT\\s+FINAL|NOT\\s+INSTANTIABLE)\\b"
+        },
+        {
+          "name": "keyword.other.plsql.trigger.plsql",
+          "match": "(?i)\\b(BEFORE|AFTER|INSTEAD\\s+OF|FOR\\s+EACH\\s+ROW|FOLLOWS|PRECEDES|COMPOUND|REFERENCING|NEW|OLD|INSERTING|UPDATING|DELETING)\\b"
+        },
+        {
+          "name": "keyword.other.plsql.transaction.plsql",
+          "match": "(?i)\\b(COMMIT|ROLLBACK|SAVEPOINT|SET\\s+TRANSACTION|LOCK\\s+TABLE)\\b"
+        },
+        {
+          "name": "keyword.other.plsql.dynamic.plsql",
+          "match": "(?i)\\b(EXECUTE\\s+IMMEDIATE|OPEN|CLOSE|FETCH|BULK\\s+COLLECT\\s+INTO|INDICES\\s+OF|VALUES\\s+OF)\\b"
+        },
+        {
+          "name": "keyword.other.plsql.pragma.plsql",
+          "match": "(?i)\\b(EXCEPTION_INIT|AUTONOMOUS_TRANSACTION|RESTRICT_REFERENCES|SERIALLY_REUSABLE|INLINE|DEPRECATE|COVERAGE|SUPPRESSES_WARNING_6009)\\b"
+        },
+        {
+          "name": "keyword.other.plsql.collection.plsql",
+          "match": "(?i)\\b(TABLE\\s+OF|INDEX\\s+BY|MULTISET|SUBMULTISET|MEMBER\\s+OF|EMPTY|CARDINALITY|EXTEND|TRIM|DELETE|FIRST|LAST|NEXT|PRIOR|COUNT|EXISTS|LIMIT)\\b"
+        }
+      ]
+    },
+    "builtin-functions": {
+      "patterns": [
+        {
+          "comment": "Aggregate/analytic functions",
+          "name": "support.function.aggregate.plsql",
+          "match": "(?i)\\b(AVG|COUNT|MAX|MIN|SUM|LISTAGG|MEDIAN|STDDEV|VARIANCE|DENSE_RANK|RANK|ROW_NUMBER|FIRST_VALUE|LAST_VALUE|LAG|LEAD|NTH_VALUE|NTILE|CUME_DIST|PERCENT_RANK|PERCENTILE_CONT|PERCENTILE_DISC|COLLECT|GROUPING|GROUPING_ID|GROUP_ID)\\b"
+        },
+        {
+          "comment": "String functions",
+          "name": "support.function.string.plsql",
+          "match": "(?i)\\b(ASCII|CHR|CONCAT|INITCAP|LENGTH|LENGTHB|LOWER|LPAD|LTRIM|REPLACE|RPAD|RTRIM|SOUNDEX|SUBSTR|SUBSTRB|TRANSLATE|TRIM|UPPER|INSTR|INSTRB|REGEXP_REPLACE|REGEXP_SUBSTR|REGEXP_INSTR|REGEXP_COUNT|REGEXP_LIKE|NCHR|NLS_INITCAP|NLS_LOWER|NLS_UPPER|NLSSORT)\\b"
+        },
+        {
+          "comment": "Numeric/math functions",
+          "name": "support.function.numeric.plsql",
+          "match": "(?i)\\b(ABS|ACOS|ASIN|ATAN|ATAN2|BITAND|CEIL|COS|COSH|EXP|FLOOR|LN|LOG|MOD|NANVL|POWER|REMAINDER|ROUND|SIGN|SIN|SINH|SQRT|TAN|TANH|TRUNC|WIDTH_BUCKET)\\b"
+        },
+        {
+          "comment": "Date/time functions",
+          "name": "support.function.datetime.plsql",
+          "match": "(?i)\\b(ADD_MONTHS|EXTRACT|FROM_TZ|LAST_DAY|MONTHS_BETWEEN|NEW_TIME|NEXT_DAY|NUMTODSINTERVAL|NUMTOYMINTERVAL|SYS_EXTRACT_UTC|TO_CHAR|TO_DATE|TO_TIMESTAMP|TO_TIMESTAMP_TZ|TO_DSINTERVAL|TO_YMINTERVAL|TZ_OFFSET|DBTIMEZONE|SESSIONTIMEZONE)\\b"
+        },
+        {
+          "comment": "Conversion functions",
+          "name": "support.function.conversion.plsql",
+          "match": "(?i)\\b(ASCIISTR|BIN_TO_NUM|CAST|CHARTOROWID|COMPOSE|CONVERT|DECOMPOSE|HEXTORAW|RAWTOHEX|RAWTONHEX|ROWIDTOCHAR|ROWIDTONCHAR|TO_BINARY_DOUBLE|TO_BINARY_FLOAT|TO_BLOB|TO_CHAR|TO_CLOB|TO_DATE|TO_LOB|TO_MULTI_BYTE|TO_NCHAR|TO_NCLOB|TO_NUMBER|TO_SINGLE_BYTE|TREAT|UNISTR|VALIDATE_CONVERSION)\\b"
+        },
+        {
+          "comment": "Conditional/null functions",
+          "name": "support.function.conditional.plsql",
+          "match": "(?i)\\b(NVL|NVL2|NULLIF|COALESCE|DECODE|GREATEST|LEAST|LNNVL|CASE|DUMP|VSIZE|ORA_HASH|STANDARD_HASH)\\b"
+        },
+        {
+          "comment": "JSON functions",
+          "name": "support.function.json.plsql",
+          "match": "(?i)\\b(JSON_VALUE|JSON_QUERY|JSON_TABLE|JSON_OBJECT|JSON_ARRAY|JSON_OBJECTAGG|JSON_ARRAYAGG|JSON_EXISTS|JSON_MERGEPATCH|JSON_EQUAL|JSON_SERIALIZE|JSON_SCALAR|JSON_TRANSFORM|JSON_DATAGUIDE)\\b"
+        },
+        {
+          "comment": "XML functions",
+          "name": "support.function.xml.plsql",
+          "match": "(?i)\\b(XMLELEMENT|XMLATTRIBUTES|XMLFOREST|XMLAGG|XMLCONCAT|XMLROOT|XMLPARSE|XMLSERIALIZE|XMLQUERY|XMLTABLE|XMLCAST|XMLEXISTS|XMLPI|XMLCOMMENT|XMLCDATA|EXTRACTVALUE|EXISTSNODE|XMLSEQUENCE|SYS_XMLGEN|SYS_XMLAGG)\\b"
+        },
+        {
+          "comment": "Environment/context functions",
+          "name": "support.function.environment.plsql",
+          "match": "(?i)\\b(SYS_CONTEXT|SYS_GUID|SYS_TYPEID|USERENV|DBMS_OUTPUT\\.PUT_LINE)\\b"
+        },
+        {
+          "comment": "LOB functions",
+          "name": "support.function.lob.plsql",
+          "match": "(?i)\\b(EMPTY_BLOB|EMPTY_CLOB|BFILENAME)\\b"
+        }
+      ]
+    },
+    "sqlplus-commands": {
+      "patterns": [
+        {
+          "name": "support.function.sqlplus.plsql",
+          "match": "(?i)^\\s*(SET|SHOW|SPOOL|PROMPT|ACCEPT|DEFINE|UNDEFINE|VARIABLE|COLUMN|BREAK|COMPUTE|TTITLE|BTITLE|REPHEADER|REPFOOTER|CLEAR|START|@@?|EXIT|QUIT|WHENEVER|EXEC|DESC|CONN)\\b"
+        }
+      ]
+    },
+    "bind-variables": {
+      "patterns": [
+        {
+          "comment": "Bind/host variable :name or :NEW/:OLD in triggers",
+          "name": "variable.other.bind.plsql",
+          "match": ":[A-Za-z_][A-Za-z0-9_$#]*"
+        },
+        {
+          "comment": "Substitution variable &name or &&name",
+          "name": "variable.other.substitution.plsql",
+          "match": "&&?[A-Za-z_][A-Za-z0-9_$#]*"
+        }
+      ]
+    },
+    "identifiers": {
+      "patterns": [
+        {
+          "comment": "General identifier (catch-all, low priority)",
+          "name": "variable.other.plsql",
+          "match": "\\b[A-Za-z_][A-Za-z0-9_$#]*\\b"
+        }
+      ]
+    }
+  }
+}

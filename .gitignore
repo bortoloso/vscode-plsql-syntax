@@ -1,0 +1,3 @@
+*.vsix
+assets/
+node_modules/
