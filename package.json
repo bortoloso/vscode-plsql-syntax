@@ -2,9 +2,17 @@
   "name": "vscode-plsql-syntax",
   "displayName": "PL/SQL",
   "description": "PL/SQL and SQL syntax highlighting for VS Code",
-  "version": "1.0.0",
-  "publisher": "local",
+  "version": "1.1.0",
+  "publisher": "bortoloso",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bortoloso/vscode-plsql-syntax.git"
+  },
+  "homepage": "https://github.com/bortoloso/vscode-plsql-syntax#readme",
+  "bugs": {
+    "url": "https://github.com/bortoloso/vscode-plsql-syntax/issues"
+  },
   "engines": {
     "vscode": "^1.80.0"
   },

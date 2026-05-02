@@ -17,14 +17,14 @@ Syntax highlighting extension for PL/SQL and SQL in Visual Studio Code.
 1. Package the extension:
 
 ```bash
-cd /path/to/vscode_plsql_syntax
-vsce package --allow-missing-repository
+cd vscode-plsql-syntax
+vsce package
 ```
 
 2. Install the generated VSIX:
 
 ```bash
-code --install-extension vscode-plsql-syntax-1.0.0.vsix --force
+code --install-extension vscode-plsql-syntax-<version>.vsix --force
 ```
 
 3. Reload VS Code:
@@ -36,7 +36,7 @@ Open the command palette (`Ctrl+Shift+P`) and run **Developer: Reload Window**.
 After editing the grammar (`syntaxes/plsql.tmLanguage.json`) or language configuration:
 
 1. Increment `version` in `package.json`.
-2. Repackage: `vsce package --allow-missing-repository`
+2. Repackage: `vsce package`
 3. Reinstall: `code --install-extension vscode-plsql-syntax-<version>.vsix --force`
 4. Reload window.
 
