@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - prepare-to-create-extension
+  pull_request:
+
+jobs:
+  validate-and-package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install vsce
+        run: npm install -g @vscode/vsce
+
+      - name: Validate grammar JSON
+        run: npm run validate:grammar
+
+      - name: Build VSIX
+        run: npm run package:ci
+
+      - name: Upload VSIX artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vscode-plsql-syntax-vsix
+          path: vscode-plsql-syntax.vsix

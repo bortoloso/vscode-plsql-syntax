@@ -2,3 +2,4 @@ assets/**
 .git/**
 .gitignore
 *.vsix
+.github/**
