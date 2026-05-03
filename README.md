@@ -1,24 +1,27 @@
 # PL/SQL
 
-Syntax highlighting extension for PL/SQL and SQL in Visual Studio Code.
+Lightweight syntax highlighting extension for PL/SQL and SQL in Visual Studio Code.
 
-## Features
+## What It Highlights
 
-- Full PL/SQL language highlighting (procedures, functions, packages, triggers, types)
-- SQL DML/DDL keywords
-- Data types, built-in functions, predefined exceptions
-- Q-quote strings (`q'[...]'`, `q'{...}'`, etc.)
-- Bind variables (`:name`) and substitution variables (`&name`)
-- SQL*Plus commands
-- Supports common file extensions: `.sql`, `.pls`, `.pks`, `.pkb`, `.fnc`, `.prc`, `.trg`, `.vw`, `.pkg`, `.pck`, `.seq`, `.job`, `.src`, and more
+- PL/SQL blocks, procedures, functions, packages, triggers, and exception flow
+- SQL keywords for DML and DDL statements
+- Data types, predefined exceptions, and built-in functions
+- String variants including q-quote syntax (`q'[...]'`, `q'{...}'`, `q'<...>'`)
+- Bind variables (`:name`) and substitution variables (`&name`, `&&name`)
+- SQL*Plus commands (`SET`, `SPOOL`, `PROMPT`, `WHENEVER`, etc.)
 
-## Install locally
+## Supported File Extensions
+
+`.sql`, `.pls`, `.plsql`, `.pks`, `.pkb`, `.plb`, `.fnc`, `.prc`, `.trg`, `.vw`, `.pkg`, `.pck`, `.seq`, `.job`, `.src`, `.act`, `.bac`, `.bas`, `.scr`, `.ut`
+
+## Local Development
 
 1. Package the extension:
 
 ```bash
 cd vscode-plsql-syntax
-vsce package
+npm run package
 ```
 
 2. Install the generated VSIX:
@@ -29,45 +32,52 @@ code --install-extension vscode-plsql-syntax-<version>.vsix --force
 
 3. Reload VS Code:
 
-Open the command palette (`Ctrl+Shift+P`) and run **Developer: Reload Window**.
+- Open command palette (`Ctrl+Shift+P`)
+- Run `Developer: Reload Window`
 
-## Update after changes
+## Release Workflow
 
-After editing the grammar (`syntaxes/plsql.tmLanguage.json`) or language configuration:
+1. Update `version` in `package.json`
+2. Run grammar validation:
 
-1. Increment `version` in `package.json`.
-2. Repackage: `vsce package`
-3. Reinstall: `code --install-extension vscode-plsql-syntax-<version>.vsix --force`
-4. Reload window.
+```bash
+npm run validate:grammar
+```
 
-## Grammar structure
+3. Build VSIX:
 
-The grammar file (`syntaxes/plsql.tmLanguage.json`) is organized in clearly separated sections:
+```bash
+npm run package
+```
 
-| Section | Scope prefix | Description |
-|---------|-------------|-------------|
-| comments | `comment.` | Line (`--`) and block (`/* */`) comments |
-| strings | `string.` | Single-quote, q-quote, N-string, double-quote |
-| numbers | `constant.numeric.` | Integer, decimal, scientific notation |
-| operators | `keyword.operator.` | Arithmetic, comparison, logical, concatenation |
-| constants | `constant.language.` | TRUE, FALSE, NULL, pseudocolumns |
-| exceptions | `support.constant.exception.` | Predefined PL/SQL exceptions |
-| datatypes | `storage.type.` | All PL/SQL data types and %TYPE/%ROWTYPE |
-| control-flow | `keyword.control.` | IF, LOOP, CASE, RETURN, RAISE, etc. |
-| dml | `keyword.other.dml.` | SELECT, INSERT, UPDATE, DELETE, joins |
-| ddl | `keyword.other.ddl.` | CREATE, ALTER, DROP, constraints, storage |
-| plsql-keywords | `keyword.other.plsql.` | DECLARE, BEGIN, PACKAGE, PROCEDURE, etc. |
-| builtin-functions | `support.function.` | String, numeric, date, JSON, XML, aggregate |
-| sqlplus-commands | `support.function.sqlplus.` | SET, SPOOL, PROMPT, etc. |
-| bind-variables | `variable.other.` | :bind_var, &substitution_var |
+4. Install and validate against sample files in `assets/examples`
+
+## Grammar Scopes
+
+Current scope families used by the grammar:
+
+- `comment.*`
+- `string.*`
+- `constant.numeric.*`
+- `constant.language.*`
+- `storage.type.*`
+- `keyword.control.*`
+- `keyword.other.*`
+- `entity.name.function.*`
+- `variable.other.*`
+
+These scopes were selected for broad compatibility across popular themes.
+
+## Repository
+
+- Source: https://github.com/bortoloso/vscode-plsql-syntax
+- Issues: https://github.com/bortoloso/vscode-plsql-syntax/issues
 
 ## Disclaimer
 
-This extension is **not** affiliated with, endorsed by, or related to Oracle Corporation in any way.
+This extension is not affiliated with, endorsed by, or related to Oracle Corporation.
 
-"Oracle", "PL/SQL", and "SQL*Plus" are trademarks or registered trademarks of Oracle Corporation. Their use in this project is solely for identification purposes to describe the programming language supported by this extension.
-
-This is an independent, community-driven project released under the MIT License.
+"Oracle", "PL/SQL", and "SQL*Plus" are trademarks or registered trademarks of Oracle Corporation. They are referenced only to identify supported language and tooling concepts.
 
 ## License
 
