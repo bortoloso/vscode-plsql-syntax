@@ -2,7 +2,7 @@
   "name": "vscode-plsql-syntax",
   "displayName": "PL/SQL",
   "description": "PL/SQL syntax highlighting for SQL, procedures, packages, triggers, and SQL*Plus scripts",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "publisher": "bortoloso",
   "license": "MIT",
   "icon": "media/icon.png",
@@ -24,6 +24,9 @@
   },
   "scripts": {
     "validate:grammar": "node -e \"JSON.parse(require('fs').readFileSync('syntaxes/plsql.tmLanguage.json','utf8')); JSON.parse(require('fs').readFileSync('syntaxes/language-configuration.json','utf8')); console.log('Grammar JSON OK');\"",
+    "docs:serve": "./scripts/serve-docs.sh",
+    "docs:build": "./scripts/build-docs.sh",
+    "docs:test": "./scripts/test-docs.sh",
     "package": "vsce package",
     "package:ci": "vsce package --out vscode-plsql-syntax.vsix"
   },
