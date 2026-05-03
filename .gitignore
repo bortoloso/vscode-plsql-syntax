@@ -1,5 +1,8 @@
 *.vsix
 assets/
+!docs/assets/
+!docs/assets/icon.png
+!docs/assets/icon.svg
 node_modules/
 site/
 .venv-docs/

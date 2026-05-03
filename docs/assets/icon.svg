@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <rect x="0" y="0" width="256" height="256" rx="52" ry="52" fill="#0d1526"/>
+  <text
+    x="128"
+    y="124"
+    font-family="DejaVu Sans Mono, monospace"
+    font-size="62"
+    font-weight="700"
+    text-anchor="middle"
+    letter-spacing="2"
+    fill="#f59e0b"
+  >PL</text>
+  <text
+    x="128"
+    y="182"
+    font-family="DejaVu Sans Mono, monospace"
+    font-size="50"
+    font-weight="700"
+    text-anchor="middle"
+    letter-spacing="2"
+    fill="#f8fafc"
+  >SQL</text>
+</svg>

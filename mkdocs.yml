@@ -9,8 +9,8 @@ copyright: Copyright (c) 2026 bortoloso
 
 theme:
   name: material
-  logo: assets/icon.png
-  favicon: assets/icon.png
+  logo: assets/icon.svg
+  favicon: assets/icon.svg
   language: en
   font:
     text: IBM Plex Sans
