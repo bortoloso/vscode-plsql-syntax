@@ -3,3 +3,9 @@ assets/**
 .gitignore
 *.vsix
 .github/**
+docs/**
+mkdocs.yml
+requirements-docs.txt
+scripts/**
+site/**
+.venv-docs/**

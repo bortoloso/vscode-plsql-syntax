@@ -1,0 +1,80 @@
+site_name: PL/SQL
+site_description: PL/SQL syntax highlighting extension for Visual Studio Code.
+site_url: https://bortoloso.github.io/vscode-plsql-syntax/
+repo_url: https://github.com/bortoloso/vscode-plsql-syntax
+repo_name: bortoloso/vscode-plsql-syntax
+edit_uri: edit/main/docs/
+site_dir: site
+copyright: Copyright (c) 2026 bortoloso
+
+theme:
+  name: material
+  logo: assets/icon.png
+  favicon: assets/icon.png
+  language: en
+  font:
+    text: IBM Plex Sans
+    code: IBM Plex Mono
+  palette:
+    - scheme: default
+      primary: blue grey
+      accent: amber
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue grey
+      accent: amber
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - navigation.indexes
+    - content.code.copy
+    - content.tabs.link
+    - content.tooltips
+    - search.highlight
+    - search.suggest
+    - toc.follow
+
+nav:
+  - Home: index.md
+  - Overview:
+      - Purpose and Status: overview.md
+      - Coverage: coverage.md
+      - Installation: installation.md
+      - Roadmap: roadmap.md
+  - Project:
+      - Changelog: changelog.md
+      - Disclaimer: disclaimer.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - tables
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/bortoloso/vscode-plsql-syntax
+      name: GitHub repository
+
+extra_css:
+  - stylesheets/extra.css
+
+plugins:
+  - search
